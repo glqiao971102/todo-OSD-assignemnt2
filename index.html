@@ -17,7 +17,7 @@
    <h2>My Grocery List</h2>
    <input type="text" id="myItem" placeholder="Item I need to buy..">
       <input type="number" id="quantity" name="quantity" placeholder="Quantity"  min="1" class="quantity">
-
+      <input type="text" id="myPrice" placeholder="RM">
    <select class="" name="unit" id="unit" placeholder="Unit">
 <!--<option disabled selected value=""> choose unit </option> -->
      <option value=" lb">lb</option>
@@ -35,6 +35,19 @@
 <ul id="myUL"></ul>
 
  </div>
+
+ <div id="inputDIV">
+
+ <form id='formBudget'>
+    <h2>My Budget Calculate</h2>
+    <label>RM</label>
+    <input type="text" id="budget" name="user_budget" >
+    
+    <ul id="myBudget"></ul>
+    <button type="submit" id='calculateSubmit'>Calculate</button>
+
+ </form>
+</div>
 
 </body>
 </html>
