@@ -40,7 +40,7 @@ $(document).ready(function() {
    function doneBuyItem() {      //strike through the item when done buying it
      
     $(this).parent().toggleClass('strike');
-     
+    $('ul#myUL').find('li.strike').appendTo('ul#myUL');
      
      
  } 
