@@ -65,7 +65,7 @@ $(document).ready(function() {
 //this function is for all the list
 //when the user hit the x 'remove X', it will delete the shopping list item
   function deleteItem(){ 
-      $(this).parent().hide();
+      $(this).parent().remove();
   }
   
   function calculate(){
@@ -88,13 +88,13 @@ $(document).ready(function() {
 
   console.log(result)
 
-  if(result <= 0){
+  if(result < 0){
 
-    console.log('You need more money')
+    alert('You need more money')
 
   }else{
 
-    console.log('Buy now')
+    alert('Buy now')
 
   }
 
