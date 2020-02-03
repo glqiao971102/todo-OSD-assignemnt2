@@ -29,13 +29,14 @@ $(document).ready(function() {
       if((quantity >= 1)) {
         if(unit === ' ') {
             $("#myUL").append("<li> <input type='checkbox' name='done' class='itemDone'/>  " + quantity + ' ' + unit + shoppingItem + '      RM' + price +"<button class='delete'> x </button> </li>" );
-            $("#myBudget").append("<li> "  + ' ' + shoppingItem + '      RM' + price + "<button class='delete'> x </button> </li>" );
-            totalPrice += price
-            console.log(totalPrice)
+            $("#myBudget").append("<li class='itemPrice'> "  + ' ' + shoppingItem + '      RM' + price + "<button class='delete'> x </button> </li>" );
+            $("#myJSON").append("<li class='itemJSON'> "  + ' ' + shoppingItem + ' RM' + price  );
+            
          }
      else {
         $("#myUL").append("<li> <input type='checkbox' name='done' class='itemDone'/>  " + quantity + ' ' + " ( "+ unit +" ) " + shoppingItem + '      RM' + price + " <button class='delete'> x </button> </li>" );
         $("#myBudget").append("<li class='itemPrice'>  "  + ' ' + shoppingItem  + '      RM'+ price + "<button class='delete'> x </button> </li>" );
+        $("#myJSON").append("<li class='itemJSON'> " + shoppingItem + ' RM' + price  );
         
            }  
           }  
@@ -68,30 +69,37 @@ $(document).ready(function() {
       $(this).parent().remove();
   }
   
+  //this function is to calculate the budget of user 
+  // to check whether the user budget is enough for buy the shopping item
   function calculate(){
     
+    //get the element which is the ID is budget
     const allBudget = document.getElementById('budget')
     let totalPrice = 0;
+    //get the element which the classname is itemPrice
     const getPrice = document.getElementsByClassName('itemPrice')
     
     
 
     for(let i = 0; i < getPrice.length; i++){
 
+      //first it will get the whole string in the textContent
       let getNumber = getPrice[i].textContent
+      //then it will get only the number in the textCOntent
       let eachPrice = getNumber.match(/\d+/);
+      //convert the string to number
       totalPrice += parseInt(eachPrice)
 
   }
-    
+    //calculate the diffrent between user budget and all user item
   let result = allBudget.value - totalPrice
 
-  console.log(result)
+  //if the user budget is not enough to buy the item, it will alert user need more money
 
   if(result < 0){
 
     alert('You need more money')
-
+    //else it will call user buy the item .
   }else{
 
     alert('Buy now')
@@ -100,12 +108,34 @@ $(document).ready(function() {
 
   }
 
+  function JSONconvert(){
+    let el_up = document.getElementById("GFG_UP"); 
+    let el_down = document.getElementById("GFG_DOWN"); 
+    let allList = []
+    const getJSON = document.getElementsByClassName('itemJSON')
+   
+    for(let i = 0; i < getJSON.length; i++){
+
+      //first it will get the whole string in the textContent
+      let getTextContent = getJSON[i].textContent
+      allList.push(getTextContent)
+
+  }
+
+  el_down.innerHTML = "JSON Object = "+JSON.stringify(Object.assign({}, allList));   
+
+  }
     //this function 82-85 line is to prevent the page refresh when click the submit button
     var form = document.getElementById("formBudget");
     function handleForm(event) { event.preventDefault(); } 
     form.addEventListener('submit', handleForm);
 
+    var form = document.getElementById("formJSON");
+    function handleForm(event) { event.preventDefault(); } 
+    form.addEventListener('submit', handleForm);
+
     $(function(){
+    $("#JSONSubmit").on("click", JSONconvert);/*when user click the button and item is calculate*/
     $("#calculateSubmit").on("click", calculate);/*when user click the button and item is calculate*/
     $("#add").on("click", addListItem);/*when user click the button and item is added*/
     $(document).on('click','.itemDone', doneBuyItem); /*when user click the checkbox the doneBuyItem strikes out the item and makes it red */
