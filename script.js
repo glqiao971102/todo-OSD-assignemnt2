@@ -98,7 +98,7 @@ $(document).ready(function() {
 
   if(result < 0){
 
-    alert('You need more money')
+    alert('You need more money, RM' + Math.abs(result).toFixed(2))
     //else it will call user buy the item .
   }else{
 
